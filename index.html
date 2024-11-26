@@ -1,46 +1,112 @@
-<!doctype html>
-
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <title>HTML Example</title>
-  
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/about.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소련재건사전조사</title>
+    <style>
+        body {
+            background-color: red; 
+            color: black;
+            font-family: Arial, sans-serif; 
+            display: flex;
+            flex-direction: column; 
+            justify-content: center;
+            align-items: center;
+            height: 100vh; 
+            margin: 0;
+        }
+        h1 {
+            font-size: 2em; 
+            text-align: center;
+            margin: 0; 
+        }
+        p {
+            font-size: 1.2em; 
+            text-align: center; 
+            margin-top: 10px; 
+            display: flex;
+            align-items: center; 
+        }
+        .counter {
+            font-size: 1.5em; 
+            margin-top: 20px;
+        }
+        .button-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .copy-message {
+            font-size: 1.2em;
+            margin-top: 20px;
+            color: rgb(255, 255, 255);
+        }
+        #copyButton {
+            margin-left: 10px; 
+        }
+        
+        .small-text {
+            font-size: 0.7em; 
+            text-align: center; 
+            color: black;
+            margin-top: 10px; 
+        }
+    </style>
 </head>
 <body>
-  <section class="center">
-    <aside class="sidebar"></aside>
+    <h1>나는 공산당을 지지합니다. 너도 그렇습니다.</h1>
+    <p>
+        소련을 그리워하지 않는자는 심장이 없다. 허나 소련을 재건 하고싶은 사람은 뇌가 없다.
+        <button id="copyButton">긴빠이 치기</button>
+    </p>
     
-    <section class="contents">
-      <!-- page will be include here -->
-      <section id="page" class="page">
-        <section id="about">
-          <section class="frame">
-            <h2><b>HELLO</b>WORLD</h2>
+    <div class="button-container">
+        <input type="checkbox" id="checkbox"> 나는 소련 재건에 동의합니다<br><br>
+        <button id="okButton">뺑끼치기</button>
+    </div>
+    
+    <div class="counter">
+        행운이 올 확률  <span id="count">0</span> %
+    </div>
+    
+  
+    <div id="copyMessage" class="copy-message"></div>
+
+   
+    <p class="small-text">본 확률은 0%에서 이상, 또는 이하로 넘어가는 시점부터 무효화됩니다.</p>
+
+    <script>
+       
+        let count = 0;
+        const okButton = document.getElementById('okButton');
+        const checkbox = document.getElementById('checkbox');
+        const countDisplay = document.getElementById('count');
+        
+        okButton.addEventListener('click', () => {
+            if (checkbox.checked) {
+                count++;
+                countDisplay.textContent = count;
+            }
+        });
+
+        const copyButton = document.getElementById('copyButton');
+        const copyMessage = document.getElementById('copyMessage');
+        const textToCopy = '소련을 그리워하지 않는자는 심장이 없다. 허나 소련을 재건 하고싶은 사람은 뇌가 없다.';
+
+        copyButton.addEventListener('click', () => {
             
-            <div class="cat">
-              <div class="picture">
-                <img src="images/mew.png" alt="Mew">
-              </div>
-              <small>Mew</small>
-            </div>
-            <div class="cat">
-              <div class="picture">
-                <img src="images/siesta.png" alt="Siesta">
-              </div>
-              <small>Siesta</small>
-            </div>
-            <div class="cat">
-              <div class="picture">
-                <img src="images/tiger.png" alt="Tiger">
-              </div>
-              <small>Tiger</small>
-            </div>
-          </section>
-        </section>
-      </section>
-    </section>
-  </section>
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                
+                copyMessage.textContent = '*클립보드에 복사됨*';
+                
+                
+                setTimeout(() => {
+                    copyMessage.textContent = '';
+                }, 1000);
+            }).catch((err) => {
+                console.error('클립보드 복사 실패:', err);
+            });
+        });
+    </script>
 </body>
 </html>
